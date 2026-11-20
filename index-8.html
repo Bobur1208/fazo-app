@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2e7d32">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="FAZO">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="icon" href="icon.svg">
+<title>FAZO — qishloq oziq-ovqat va uy-roʻzgʻor mahsulotlari</title>
+<style>
+:root{--text:#12261a;--muted:#4d6454;--green:#2e7d32;--on:#fff;--g:rgba(255,255,255,.2);--gb:rgba(255,255,255,.55);--gs:rgba(20,50,25,.1);--gt:rgba(46,125,50,.7)}
+@media (prefers-color-scheme:dark){:root{color-scheme:dark;--text:#e8f0e8;--muted:#a3b8a5;--green:#6fcf75;--g:rgba(255,255,255,.07);--gb:rgba(255,255,255,.18);--gs:rgba(0,0,0,.4);--gt:rgba(76,175,80,.62)}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{min-height:100vh;padding:env(safe-area-inset-top,0px) 0 96px;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.45;background:radial-gradient(circle at 12% 8%,#8fd694 0,transparent 42%),radial-gradient(circle at 90% 28%,#ffd966 0,transparent 36%),radial-gradient(circle at 30% 92%,#6fd3c8 0,transparent 42%),#e6f2e7;background-attachment:fixed}
+@media (prefers-color-scheme:dark){body{background:radial-gradient(circle at 12% 8%,#1b5e20 0,transparent 42%),radial-gradient(circle at 90% 28%,#5a420a 0,transparent 36%),radial-gradient(circle at 30% 92%,#00574b 0,transparent 42%),#0b120c;background-attachment:fixed}}
+.glass,header,nav,.card,.row,.box,.chip,.sm,input,select,.hero,.toast{-webkit-backdrop-filter:blur(30px) saturate(190%);backdrop-filter:blur(30px) saturate(190%);background:var(--g);border:1px solid var(--gb);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 8px 30px var(--gs)}
+header{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:5;margin:8px 12px;border-radius:26px;padding:10px 18px;display:flex;align-items:center}
+.logo{font-weight:800;font-size:1.35rem;color:var(--green);margin-right:auto}
+header small{color:var(--muted)}
+main{max-width:900px;margin:auto;padding:8px 14px}
+nav{position:fixed;left:14px;right:14px;bottom:calc(env(safe-area-inset-bottom,0px) + 10px);z-index:6;max-width:520px;margin:auto;border-radius:30px;display:flex;padding:6px}
+nav a{flex:1;text-align:center;text-decoration:none;color:var(--text);padding:8px 4px;border-radius:24px;font-size:.78rem;position:relative}
+nav a b{display:block;font-size:1.25rem;font-weight:400}
+nav a.on{background:var(--gt);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
+.badge{position:absolute;top:2px;right:22%;background:#e53935;color:#fff;border-radius:99px;font-size:.65rem;padding:0 6px}
+.hero{border-radius:28px;padding:24px 20px;margin-bottom:14px;background:linear-gradient(135deg,rgba(46,125,50,.7),rgba(129,199,132,.35));color:#fff}
+.hero h1{margin:0 0 6px;font-size:1.5rem}.hero p{margin:0;opacity:.92}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px}
+.chip{padding:8px 15px;border-radius:99px;cursor:pointer;white-space:nowrap;font-size:.88rem;color:var(--text)}
+.chip.on,.btn{background:var(--gt);color:#fff;border:1px solid rgba(255,255,255,.45);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 6px 18px rgba(46,125,50,.28)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px}
+.card{border-radius:24px;padding:14px;display:flex;flex-direction:column;gap:5px}
+.pic{font-size:3rem;text-align:center}.card h3{margin:0;font-size:.98rem}.muted{color:var(--muted);font-size:.82rem}.price{font-weight:700}
+.btn{border-radius:99px;padding:11px 14px;font-size:.95rem;font-weight:600;cursor:pointer;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.btn.off{opacity:.45}.w{width:100%;margin-top:6px}
+.sm{border-radius:99px;min-width:34px;height:34px;cursor:pointer;color:var(--text);font-size:1rem}
+.row{display:flex;align-items:center;gap:10px;border-radius:20px;padding:10px 12px;margin-bottom:8px}.nm{flex:1;min-width:0}
+.box{border-radius:26px;padding:18px;margin:0 auto 12px;max-width:440px}.wide{max-width:none}
+input,select{width:100%;padding:11px 14px;border-radius:16px;color:var(--text);font-size:1rem;margin:4px 0 8px;font-family:inherit}
+input::placeholder{color:var(--muted)}
+.total{display:flex;justify-content:space-between;font-weight:700;padding:3px 4px}
+.toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%);padding:10px 18px;border-radius:99px;z-index:9;font-size:.9rem}
+button{font-family:inherit;transition:transform .15s}button:active,nav a:active{transform:scale(.95)}
+h2{margin:6px 4px 10px}a.l{color:var(--green)}
+</style>
+</head>
+<body>
+<header><span class="logo" id="lg">FAZO.</span><small id="sub"></small></header>
+<main id="app"></main>
+<nav><a href="#katalog" id="n1"><b>🛍</b>Katalog</a><a href="#savat" id="n2"><b>🧺</b>Savat<span class="badge" id="cnt" hidden></span></a><a href="#profil" id="n3"><b>👤</b>Profil</a></nav>
+<script>
+const $=s=>document.querySelector(s),app=$("#app");
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const ld=(k,d)=>{try{const v=localStorage.getItem("fazo-"+k);return v?JSON.parse(v):d}catch(e){return d}};
+const sv=(k,v)=>{try{localStorage.setItem("fazo-"+k,JSON.stringify(v))}catch(e){}};
+const SEED=[["Qishloq suti 1 l","Sut mahsulotlari",12000,"🥛"],["Qatiq 500 g","Sut mahsulotlari",9000,"🍶"],["Qishloq saryogʻi","Sut mahsulotlari",38000,"🧈"],["Uy tuxumi (10 dona)","Oziq-ovqat",22000,"🥚"],["Tandir non","Oziq-ovqat",4000,"🍞"],["Asal 1 kg","Oziq-ovqat",85000,"🍯"],["Pomidor 1 kg","Sabzavot",11000,"🍅"],["Kartoshka 1 kg","Sabzavot",6000,"🥔"],["Sabzi 1 kg","Sabzavot",5000,"🥕"],["Olma 1 kg","Meva",14000,"🍎"],["Uzum 1 kg","Meva",18000,"🍇"],["Kir yuvish kukuni","Uy-roʻzgʻor",32000,"🧺"],["Idish yuvish suyuqligi","Uy-roʻzgʻor",15000,"🧼"],["Supurgi","Uy-roʻzgʻor",20000,"🧹"]].map((a,i)=>({id:i+1,n:a[0],c:a[1],p:a[2],e:a[3],s:true}));
+const DS={name:"FAZO",phone:"+998 90 000 00 00",tg:"",fee:10000,pin:"1234"};
+let S=ld("set",DS),P=ld("prod",SEED),C=ld("cart",{}),O=ld("ord",[]),U=ld("user",{}),adm=false,cat="Hammasi",q="",tab="p",edit=null,dp=null;
+let API=false,PIN="";
+const ios=/iphone|ipad/i.test(navigator.userAgent)&&!navigator.standalone;
+const api=(a,o={})=>fetch("/api/data"+(a?"?a="+a:""),{...o,headers:{"content-type":"application/json","x-pin":PIN,...(o.headers||{})}});
+async function boot(){try{const r=await api("");if(!r.ok)return;const d=await r.json();if(d.products){P=d.products;S={...S,...d.settings}}API=true;render()}catch(e){}}
+const push=np=>{sv("prod",P);sv("set",S);if(API){const {pin,...st}=S;api("",{method:"POST",body:JSON.stringify({products:P,settings:st,pin:np||""})}).then(r=>{if(!r.ok)toast("Serverga saqlanmadi")}).catch(()=>toast("Internet xatosi"))}};
+const saveO=()=>{sv("ord",O);if(API)api("orders",{method:"POST",body:JSON.stringify(O)}).catch(()=>{})};
+async function refO(){try{const r=await api("orders");if(r.ok){O=await r.json();render()}}catch(e){}}
+async function login(){const v=$("#pin").value;if(API){try{const r=await api("orders",{headers:{"x-pin":v}});if(r.ok){PIN=v;O=await r.json();adm=true;render()}else toast("PIN notoʻgʻri")}catch(e){toast("Internet xatosi")}}else if(v===S.pin){adm=true;render()}else toast("PIN notoʻgʻri")}
+const shareApp=()=>navigator.share?navigator.share({title:S.name,url:location.origin}).catch(()=>{}):navigator.clipboard.writeText(location.origin).then(()=>toast("Havola nusxalandi"));
+const fmt=n=>Number(n).toLocaleString("ru-RU")+" soʻm",cnt=()=>Object.values(C).reduce((a,b)=>a+b,0);
+function toast(t){const d=document.createElement("div");d.className="toast";d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2200)}
+function badge(){const c=$("#cnt");c.textContent=cnt();c.hidden=!cnt()}
+function gridH(){const l=P.filter(p=>(cat==="Hammasi"||p.c===cat)&&p.n.toLowerCase().includes(q.toLowerCase()));
+ return l.length?l.map(p=>`<div class="card"><div class="pic">${esc(p.e)}</div><h3>${esc(p.n)}</h3><div class="muted">${esc(p.c)}</div><div class="price">${fmt(p.p)}</div>${p.s?`<button class="btn" onclick="add(${p.id},1)">Savatga${C[p.id]?" ("+C[p.id]+")":""}</button>`:`<button class="btn off" disabled>Tugagan</button>`}</div>`).join(""):`<p class="muted">Hech narsa topilmadi</p>`}
+function add(id,d){C[id]=(C[id]||0)+d;if(C[id]<=0)delete C[id];sv("cart",C);badge();if(location.hash==="#savat")render();else $("#g").innerHTML=gridH()}
+function catalog(){const cs=["Hammasi",...new Set(P.map(p=>p.c))];
+ return `${dp?`<div class="row"><span style="font-size:1.6rem">📲</span><div class="nm"><b>FAZO ilovasi</b><div class="muted">Telefoningizga yuklab oling</div></div><button class="btn" onclick="inst()">Yuklab olish</button></div>`:ios?`<div class="row"><span style="font-size:1.6rem">📲</span><div class="nm"><b>iPhone uchun</b><div class="muted">Ulashish ⬆️ tugmasi → «Bosh ekranga qoʻshish»</div></div></div>`:""}<div class="hero"><h1>Qishloqdan toʻgʻri uyingizga</h1><p>Yangi oziq-ovqat va uy-roʻzgʻor mahsulotlari — qulay narxda, yetkazib berish bilan.</p></div>
+ <input placeholder="🔍 Mahsulot qidirish" value="${esc(q)}" oninput="q=this.value;$('#g').innerHTML=gridH()">
+ <div class="chips">${cs.map(c=>`<button class="chip ${c===cat?"on":""}" onclick="cat=this.dataset.c;render()" data-c="${esc(c)}">${esc(c)}</button>`).join("")}</div><div class="grid" id="g">${gridH()}</div>`}
+function cartH(){const it=P.filter(p=>C[p.id]);
+ if(!it.length)return `<h2>Savat</h2><div class="box"><p class="muted">Savatingiz boʻsh.</p><a class="l" href="#katalog">Katalogga oʻtish</a></div>`;
+ const sub=it.reduce((a,p)=>a+p.p*C[p.id],0),fee=Number(S.fee)||0;
+ return `<h2>Savat</h2>${it.map(p=>`<div class="row"><span style="font-size:1.7rem">${esc(p.e)}</span><div class="nm"><b>${esc(p.n)}</b><div class="muted">${fmt(p.p)}</div></div><button class="sm" onclick="add(${p.id},-1)">−</button><b>${C[p.id]}</b><button class="sm" onclick="add(${p.id},1)">+</button></div>`).join("")}
+ <div class="box wide"><div class="total"><span>Mahsulotlar</span><span>${fmt(sub)}</span></div><div class="total"><span>Yetkazib berish</span><span>${fmt(fee)}</span></div><div class="total" style="font-size:1.15rem"><span>Jami</span><span>${fmt(sub+fee)}</span></div>
+ <input id="cn" placeholder="Ismingiz" value="${esc(U.name||"")}"><input id="cp" type="tel" placeholder="Telefon" value="${esc(U.phone||"")}"><input id="ca" placeholder="Manzil" value="${esc(U.addr||"")}">
+ <button class="btn w" onclick="order(${sub+fee})">Buyurtma berish</button></div>`}
+async function order(sum){const n=$("#cn").value.trim(),p=$("#cp").value.trim(),a=$("#ca").value.trim();
+ if(!n||!p||!a)return toast("Ism, telefon va manzilni kiriting");
+ U={name:n,phone:p,addr:a};sv("user",U);
+ const items=P.filter(x=>C[x.id]).map(x=>({n:x.n,q:C[x.id],p:x.p}));
+ const od={id:Date.now(),t:new Date().toLocaleString("uz"),name:n,phone:p,addr:a,items,sum,st:"Yangi"};
+ let ok=false;try{const r=await fetch("/api/order",{method:"POST",cache:"no-store",headers:{"content-type":"application/json"},body:JSON.stringify({name:n,phone:p,address:a,pay:"-",items:items.map(i=>({name:i.n,qty:i.q})),total:sum})});ok=r.ok}catch(e){}if(!ok&&!API)return toast("Buyurtma yuborilmadi, qayta urining");if(ok)toast("Buyurtma yuborildi ✅");
+ if(API){try{const r=await api("order",{method:"POST",body:JSON.stringify(od)});if(!r.ok)throw 0}catch(e){return toast("Buyurtma yuborilmadi, qayta urining")}}else{O.push(od);sv("ord",O)}
+ const txt=`Yangi buyurtma (${S.name})\n`+items.map(i=>`• ${i.n} ×${i.q}`).join("\n")+`\nJami: ${fmt(sum)}\n${n}, ${p}\n${a}`;
+ C={};sv("cart",C);badge();
+ app.innerHTML=`<div class="box"><h2>Rahmat! 🎉</h2><p>Buyurtmangiz qabul qilindi. Tez orada bogʻlanamiz.</p>${S.tg?`<a class="btn w" style="display:block;text-align:center;text-decoration:none" target="_blank" href="https://t.me/${esc(S.tg)}?text=${encodeURIComponent(txt)}">Telegramda yuborish</a>`:""}<p><a class="l" href="#katalog">Katalogga qaytish</a></p></div>`}
+function profile(){return `<h2>Profil</h2><div class="box"><input id="pn" placeholder="Ism" value="${esc(U.name||"")}"><input id="pp" type="tel" placeholder="Telefon" value="${esc(U.phone||"")}"><input id="pa" placeholder="Manzil" value="${esc(U.addr||"")}"><button class="btn w" onclick="U={name:$('#pn').value,phone:$('#pp').value,addr:$('#pa').value};sv('user',U);toast('Saqlandi')">Saqlash</button></div>
+ <div class="box"><b>Aloqa</b><p class="muted">📞 ${esc(S.phone)}</p>${dp?`<button class="btn w" onclick="inst()">📲 Ilovani oʻrnatish</button>`:""}<button class="btn w" onclick="shareApp()">🔗 Doʻstlarga ulashish</button><button class="btn w" onclick="location.hash='#admin'">⚙️ Admin panel</button></div>`}
+function saveP(){const n=$("#an").value.trim(),c=$("#ac").value.trim()||"Boshqa",p=Number($("#ap").value),e=$("#ae").value.trim()||"🛒";
+ if(!n||!p)return toast("Nomi va narxini kiriting");
+ const o=P.find(x=>x.id===edit);if(o)Object.assign(o,{n,c,p,e});else P.push({id:Date.now(),n,c,p,e,s:true});
+ push();edit=null;toast("Saqlandi");render()}
+const stk=id=>{const p=P.find(x=>x.id===id);p.s=!p.s;push();render()};
+const delP=id=>{if(confirm("Oʻchirilsinmi?")){P=P.filter(x=>x.id!==id);push();render()}};
+const ost=(id,v)=>{O.find(x=>x.id===id).st=v;saveO()};
+const delO=id=>{if(confirm("Oʻchirilsinmi?")){O=O.filter(x=>x.id!==id);saveO();render()}};
+function saveS(){const np=$("#sx").value.trim();S={...S,name:$("#sn").value||"FAZO",phone:$("#sp").value,tg:$("#st").value.replace("@","").trim(),fee:Number($("#sf").value)||0,pin:np||S.pin};push(np);toast("Saqlandi");render()}
+function admin(){
+ if(!adm)return `<h2>Admin</h2><div class="box"><input id="pin" type="password" inputmode="numeric" placeholder="PIN-kod"><button class="btn w" onclick="login()">Kirish</button></div>`;
+ const t=(k,l)=>`<button class="chip ${tab===k?"on":""}" onclick="tab='${k}';edit=null;render()">${l}</button>`;let b="";
+ if(tab==="p"){const e=P.find(x=>x.id===edit)||{n:"",c:"",p:"",e:"🛒"};
+  b=`<div class="box wide"><b>${edit?"Tahrirlash":"Yangi mahsulot"}</b><input id="an" placeholder="Nomi" value="${esc(e.n)}"><input id="ac" placeholder="Kategoriya" value="${esc(e.c)}"><input id="ap" type="number" placeholder="Narxi (soʻm)" value="${e.p}"><input id="ae" placeholder="Emoji" value="${esc(e.e)}"><button class="btn w" onclick="saveP()">Saqlash</button></div>`+P.map(p=>`<div class="row"><span style="font-size:1.6rem">${esc(p.e)}</span><div class="nm"><b>${esc(p.n)}</b><div class="muted">${fmt(p.p)} · ${p.s?"Bor":"Tugagan"}</div></div><button class="sm" onclick="edit=${p.id};render();scrollTo(0,0)">✎</button><button class="sm" onclick="stk(${p.id})">${p.s?"⏸":"▶"}</button><button class="sm" onclick="delP(${p.id})">🗑</button></div>`).join("")}
+ else if(tab==="o"){b=(API?`<button class="btn w" onclick="refO()">🔄 Yangilash</button>`:"")+(O.length?O.slice().reverse().map(o=>`<div class="card" style="margin-bottom:10px"><b>#${String(o.id).slice(-5)} · ${esc(o.name)}</b><div class="muted">${esc(o.t)} · ${esc(o.phone)}<br>${esc(o.addr)}</div><div>${o.items.map(i=>esc(i.n)+" ×"+i.q).join(", ")}</div><div class="price">${fmt(o.sum)}</div><select onchange="ost(${o.id},this.value)">${["Yangi","Yigʻilmoqda","Yetkazilmoqda","Yetkazildi","Bekor"].map(s=>`<option ${s===o.st?"selected":""}>${s}</option>`).join("")}</select><button class="btn" onclick="delO(${o.id})">Oʻchirish</button></div>`).join(""):`<p class="muted">Buyurtmalar yoʻq</p>`)}
+ else b=`<div class="box wide"><input id="sn" placeholder="Doʻkon nomi" value="${esc(S.name)}"><input id="sp" placeholder="Telefon" value="${esc(S.phone)}"><input id="st" placeholder="Telegram username (@siz)" value="${esc(S.tg)}"><input id="sf" type="number" placeholder="Yetkazib berish narxi" value="${S.fee}"><input id="sx" placeholder="Yangi PIN (oʻzgartirmasangiz boʻsh)" value=""><button class="btn w" onclick="saveS()">Saqlash</button><button class="btn w off" onclick="if(confirm('Hammasi boshlangʻich holatga qaytadi')){P=SEED;S={...DS};push();render()}">Boshlangʻich holatga qaytarish</button></div>`;
+ const rev=O.filter(o=>o.st!=="Bekor").reduce((a,o)=>a+o.sum,0);
+ return `<h2>Admin panel</h2><div class="row"><div class="nm muted">Mahsulot: <b>${P.length}</b> · Buyurtma: <b>${O.length}</b> · Tushum: <b>${fmt(rev)}</b></div><button class="sm" onclick="adm=false;render()">Chiqish</button></div><div class="chips">${t("p","Mahsulotlar")}${t("o","Buyurtmalar")}${t("s","Sozlamalar")}</div>${b}`}
+function inst(){dp.prompt();dp=null;render()}
+addEventListener("appinstalled",()=>{dp=null;render()});
+function render(){const h=location.hash||"#katalog";
+ app.innerHTML=h==="#savat"?cartH():h==="#profil"?profile():h==="#admin"?admin():catalog();
+ ["#katalog","#savat","#profil"].forEach((x,i)=>$("#n"+(i+1)).className=(x===h||(h==="#admin"&&i===2))?"on":"");
+ $("#lg").textContent=S.name+".";$("#sub").textContent="v7";document.title=S.name+" — internet-doʻkon";badge()}
+addEventListener("hashchange",()=>{render();scrollTo(0,0)});
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;if(["","#katalog","#profil"].includes(location.hash))render()});
+try{if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{})}catch(e){}
+render();boot();
+</script>
+</body>
+</html>
