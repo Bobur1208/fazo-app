@@ -25,6 +25,16 @@ module.exports = async function handler(req, res) {
     var chat = process.env.TELEGRAM_CHAT_ID;
 
     if (req.method !== 'POST') {
+      var u = String(req.url || '');
+      if (u.indexOf('test=1') !== -1 && token && chat) {
+        var tr = await fetch('https://api.telegram.org/bot' + token + '/sendMessage', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: chat, text: 'FAZO: sinov xabari ✅' })
+        });
+        var tj = await tr.json().catch(function () { return {}; });
+        return send(res, 200, { test: true, sent: tr.ok, telegram: tj.description || 'ok' });
+      }
       return send(res, 200, { ok: true, hasToken: !!token, hasChat: !!chat });
     }
     if (!token || !chat) {
