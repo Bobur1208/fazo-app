@@ -48,7 +48,10 @@ module.exports = async function handler(req, res) {
     }
 
     var lines = items.map(function (i) {
-      return '• ' + String(i.name).slice(0, 60) + ' x' + Number(i.qty);
+      var q = Math.round(Number(i.qty) * 10) / 10;
+      if (!Number.isFinite(q) || q <= 0 || (q * 2) % 1 !== 0) q = 0;
+      var unit = i.unit === 'kg' ? ' kg' : ' ta';
+      return '• ' + String(i.name).slice(0, 60) + ' x' + q + unit;
     });
     var text =
       '🛒 YANGI BUYURTMA\n\n' +
