@@ -1,140 +1,835 @@
-
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#2e7d32">
-<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#e9f4ea">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="FAZO">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon.svg">
-<link rel="icon" href="icon.svg">
-<title>FAZO — qishloq oziq-ovqat va uy-roʻzgʻor mahsulotlari</title>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>FAZO Mark 4 — qishloq mahsulotlari</title>
 <style>
-:root{--text:#12261a;--muted:#4d6454;--green:#2e7d32;--on:#fff;--g:rgba(255,255,255,.2);--gb:rgba(255,255,255,.55);--gs:rgba(20,50,25,.1);--gt:rgba(46,125,50,.7)}
-@media (prefers-color-scheme:dark){:root{color-scheme:dark;--text:#e8f0e8;--muted:#a3b8a5;--green:#6fcf75;--g:rgba(255,255,255,.07);--gb:rgba(255,255,255,.18);--gs:rgba(0,0,0,.4);--gt:rgba(76,175,80,.62)}}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0}
-body{min-height:100vh;padding:env(safe-area-inset-top,0px) 0 96px;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.45;background:radial-gradient(circle at 12% 8%,#8fd694 0,transparent 42%),radial-gradient(circle at 90% 28%,#ffd966 0,transparent 36%),radial-gradient(circle at 30% 92%,#6fd3c8 0,transparent 42%),#e6f2e7;background-attachment:fixed}
-@media (prefers-color-scheme:dark){body{background:radial-gradient(circle at 12% 8%,#1b5e20 0,transparent 42%),radial-gradient(circle at 90% 28%,#5a420a 0,transparent 36%),radial-gradient(circle at 30% 92%,#00574b 0,transparent 42%),#0b120c;background-attachment:fixed}}
-.glass,header,nav,.card,.row,.box,.chip,.sm,input,select,.hero,.toast{-webkit-backdrop-filter:blur(30px) saturate(190%);backdrop-filter:blur(30px) saturate(190%);background:var(--g);border:1px solid var(--gb);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 8px 30px var(--gs)}
-header{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:5;margin:8px 12px;border-radius:26px;padding:10px 18px;display:flex;align-items:center}
-.logo{font-weight:800;font-size:1.35rem;color:var(--green);margin-right:auto}
-header small{color:var(--muted)}
-main{max-width:900px;margin:auto;padding:8px 14px}
-nav{position:fixed;left:14px;right:14px;bottom:calc(env(safe-area-inset-bottom,0px) + 10px);z-index:6;max-width:520px;margin:auto;border-radius:30px;display:flex;padding:6px}
-nav a{flex:1;text-align:center;text-decoration:none;color:var(--text);padding:8px 4px;border-radius:24px;font-size:.78rem;position:relative}
-nav a b{display:block;font-size:1.25rem;font-weight:400}
-nav a.on{background:var(--gt);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
-.badge{position:absolute;top:2px;right:22%;background:#e53935;color:#fff;border-radius:99px;font-size:.65rem;padding:0 6px}
-.hero{border-radius:28px;padding:24px 20px;margin-bottom:14px;background:linear-gradient(135deg,rgba(46,125,50,.7),rgba(129,199,132,.35));color:#fff}
-.hero h1{margin:0 0 6px;font-size:1.5rem}.hero p{margin:0;opacity:.92}
-.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px}
-.chip{padding:8px 15px;border-radius:99px;cursor:pointer;white-space:nowrap;font-size:.88rem;color:var(--text)}
-.chip.on,.btn{background:var(--gt);color:#fff;border:1px solid rgba(255,255,255,.45);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 6px 18px rgba(46,125,50,.28)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px}
-.card{border-radius:24px;padding:14px;display:flex;flex-direction:column;gap:5px}
-.pic{font-size:3rem;text-align:center}.card h3{margin:0;font-size:.98rem}.muted{color:var(--muted);font-size:.82rem}.price{font-weight:700}
-.btn{border-radius:99px;padding:11px 14px;font-size:.95rem;font-weight:600;cursor:pointer;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
-.btn.off{opacity:.45}.w{width:100%;margin-top:6px}
-.sm{border-radius:99px;min-width:34px;height:34px;cursor:pointer;color:var(--text);font-size:1rem}
-.row{display:flex;align-items:center;gap:10px;border-radius:20px;padding:10px 12px;margin-bottom:8px}.nm{flex:1;min-width:0}
-.box{border-radius:26px;padding:18px;margin:0 auto 12px;max-width:440px}.wide{max-width:none}
-input,select{width:100%;padding:11px 14px;border-radius:16px;color:var(--text);font-size:1rem;margin:4px 0 8px;font-family:inherit}
-input::placeholder{color:var(--muted)}
-.total{display:flex;justify-content:space-between;font-weight:700;padding:3px 4px}
-.toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%);padding:10px 18px;border-radius:99px;z-index:9;font-size:.9rem}
-button{font-family:inherit;transition:transform .15s}button:active,nav a:active{transform:scale(.95)}
-h2{margin:6px 4px 10px}a.l{color:var(--green)}
+  :root {
+    --green: #2e8b3d;
+    --green-deep: #1d6a29;
+    --text: #0f1a10;
+    --muted: rgba(30, 50, 35, 0.6);
+    --spring: cubic-bezier(.25, 1.25, .5, 1);
+    --ease: cubic-bezier(.16, 1, .3, 1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding-bottom: 130px;
+    -webkit-font-smoothing: antialiased;
+    background: #e9f4ea;
+  }
+
+  /* Orqa fon: harakatlanuvchi rangli dog'lar, shaffof oynalar ularni aks ettiradi */
+  .backdrop { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+  .blob {
+    position: absolute; width: 60vmax; height: 60vmax; border-radius: 50%;
+    opacity: .8; will-change: transform;
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+  .b1 { background: radial-gradient(circle, #7fd98a 0%, rgba(127,217,138,0) 70%); top: -20%; left: -15%; }
+  .b2 { background: radial-gradient(circle, #ffd08a 0%, rgba(255,208,138,0) 70%); top: 20%; right: -25%; animation-duration: 22s; }
+  .b3 { background: radial-gradient(circle, #8ec5ff 0%, rgba(142,197,255,0) 70%); bottom: -25%; left: 10%; animation-duration: 26s; }
+  .b4 { background: radial-gradient(circle, #d9a8ff 0%, rgba(217,168,255,0) 70%); bottom: 10%; right: -10%; width: 40vmax; height: 40vmax; animation-duration: 20s; }
+  @keyframes drift {
+    from { transform: translate(0,0) scale(1); }
+    to   { transform: translate(8vw, -6vh) scale(1.15); }
+  }
+
+  /* Shisha effekti: juda shaffof, kuchli blur */
+  .glass {
+    background: rgba(255, 255, 255, 0.22);
+    -webkit-backdrop-filter: blur(22px) saturate(200%) brightness(1.05);
+    backdrop-filter: blur(22px) saturate(200%) brightness(1.05);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow:
+      0 10px 40px rgba(20, 60, 30, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.75),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.15);
+    position: relative; overflow: hidden;
+  }
+  /* Shishaga yorug'lik tushishi (ustki nur) */
+  .glass::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(135deg, rgba(255,255,255,.35) 0%, rgba(255,255,255,0) 40%);
+    border-radius: inherit;
+  }
+
+  header {
+    position: sticky !important; top: 0; z-index: 20;
+    margin: 10px 12px 0;
+    border-radius: 26px;
+    padding: 14px 18px;
+    padding-top: calc(14px + env(safe-area-inset-top, 0px));
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { font-size: 22px; font-weight: 800; letter-spacing: 1.5px; color: var(--green-deep); position: relative; z-index: 1; }
+  .brand small { display: block; font-size: 11px; font-weight: 500; letter-spacing: 0; color: var(--muted); margin-top: 2px; }
+  .mark { font-size: 11px; font-weight: 700; color: var(--green-deep); padding: 4px 10px; border-radius: 12px; background: rgba(255,255,255,.4); position: relative; z-index: 1; }
+
+  main { padding: 16px 14px; max-width: 720px; margin: 0 auto; position: relative; }
+  .view { display: none; }
+  .view.active { display: block; animation: viewIn .55s var(--ease) both; }
+  @keyframes viewIn {
+    from { opacity: 0; transform: translateY(16px) scale(.985); }
+    to   { opacity: 1; transform: none; }
+  }
+  h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin: 6px 4px 14px; }
+
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (min-width: 560px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .card {
+    border-radius: 26px; padding: 16px 14px 14px;
+    display: flex; flex-direction: column; gap: 6px;
+    animation: cardIn .7s var(--spring) both;
+    animation-delay: var(--d, 0ms);
+    transition: transform .4s var(--spring), box-shadow .4s;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 18px 44px rgba(20,60,30,.18), inset 0 1px 0 rgba(255,255,255,.8); }
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(26px) scale(.9) rotate(-1deg); }
+    to   { opacity: 1; transform: none; }
+  }
+  .emoji {
+    font-size: 48px; text-align: center; padding: 8px 0 4px;
+    filter: drop-shadow(0 8px 10px rgba(0,0,0,.15));
+    transition: transform .6s var(--spring);
+  }
+  .card:hover .emoji { transform: translateY(-4px) rotate(-6deg) scale(1.08); }
+  .name { font-weight: 700; font-size: 15px; letter-spacing: -0.2px; position: relative; z-index: 1; }
+  .price-unit { color: var(--muted); font-size: 13px; position: relative; z-index: 1; }
+
+  /* Tugma: hech qachon oq bo'lmaydi */
+  .btn {
+    position: relative; overflow: hidden; z-index: 1;
+    border: none; border-radius: 18px; padding: 12px 14px;
+    font-size: 15px; font-weight: 700; font-family: inherit; color: #fff; cursor: pointer;
+    background: linear-gradient(180deg, #46b558 0%, #2e8b3d 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 8px 18px rgba(46,139,61,.35);
+    transition: transform .3s var(--spring), box-shadow .3s;
+    margin-top: auto;
+  }
+  .btn:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 12px 26px rgba(46,139,61,.45); }
+  .btn:active { transform: scale(.9); }
+  .btn.block { width: 100%; padding: 16px; font-size: 16px; }
+  .btn .shine {
+    position: absolute; top: 0; bottom: 0; width: 50%; left: -60%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent);
+    transform: skewX(-20deg);
+    transition: left .8s var(--ease);
+  }
+  .btn:active .shine { left: 130%; }
+  .ripple {
+    position: absolute; border-radius: 50%; pointer-events: none;
+    background: rgba(255,255,255,.55);
+    transform: scale(0); animation: ripple .6s ease-out forwards;
+  }
+  @keyframes ripple { to { transform: scale(3); opacity: 0; } }
+
+  .inCart {
+    font-size: 12px; font-weight: 700; color: var(--green-deep);
+    padding: 3px 10px; border-radius: 10px; align-self: flex-start;
+    background: rgba(255,255,255,.5); position: relative; z-index: 1;
+    animation: pop .5s var(--spring);
+  }
+
+  /* Miqdor boshqaruvi */
+  .qty {
+    display: flex; align-items: center; justify-content: space-between;
+    border-radius: 18px; padding: 4px; margin-top: auto;
+    background: rgba(255,255,255,.35);
+    border: 1px solid rgba(255,255,255,.5);
+  }
+  .qty button {
+    width: 40px; height: 40px; border: none; border-radius: 14px;
+    background: rgba(255,255,255,.8); color: var(--green-deep);
+    font-size: 22px; font-weight: 700; cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0,0,0,.08);
+    transition: transform .25s var(--spring);
+  }
+  .qty button:active { transform: scale(.8); }
+  .qty span {
+    font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums;
+    min-width: 72px; text-align: center; display: inline-block;
+    animation: tick .45s var(--spring);
+  }
+  @keyframes tick {
+    from { transform: translateY(-10px) scale(.8); opacity: 0; }
+    to   { transform: none; opacity: 1; }
+  }
+
+  /* Savat */
+  .cart-item {
+    border-radius: 26px; padding: 14px; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .cart-item.enter { animation: rowIn .7s var(--spring) both; }
+  @keyframes rowIn {
+    from { opacity: 0; transform: translateX(50px) scale(.9); }
+    to   { opacity: 1; transform: none; }
+  }
+  .cart-item.leaving { animation: rowOut .35s var(--ease) forwards; }
+  @keyframes rowOut {
+    to { opacity: 0; transform: translateX(-70px) scale(.85); height: 0; margin: 0; padding: 0; border-width: 0; }
+  }
+  .cart-thumb {
+    font-size: 32px; width: 56px; height: 56px; border-radius: 18px;
+    display: grid; place-items: center; background: rgba(255,255,255,.4);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.9); position: relative; z-index: 1;
+  }
+  .cart-info { flex: 1; min-width: 120px; position: relative; z-index: 1; }
+  .cart-info .sub { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .cart-item .qty { width: 160px; }
+  .line-total { font-weight: 800; min-width: 100px; text-align: right; font-variant-numeric: tabular-nums; position: relative; z-index: 1; }
+  .remove { background: none; border: none; color: #c62828; font-size: 13px; cursor: pointer; padding: 0; margin-top: 6px; font-family: inherit; position: relative; z-index: 1; }
+
+  .summary { border-radius: 26px; padding: 18px; margin-top: 14px; animation: viewIn .6s var(--ease) both; }
+  .summary .row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 15px; position: relative; z-index: 1; }
+  .summary .total {
+    font-size: 20px; font-weight: 800; color: var(--green-deep);
+    border-top: 1px solid rgba(255,255,255,.6); padding-top: 12px; margin-top: 6px;
+  }
+
+  .field { margin-bottom: 14px; position: relative; z-index: 1; }
+  .field label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; padding-left: 4px; }
+  .field input, .field select {
+    width: 100%; padding: 14px; border-radius: 18px;
+    border: 1px solid rgba(255,255,255,.6);
+    background: rgba(255,255,255,.3);
+    font-size: 16px; font-family: inherit; color: var(--text);
+    outline: none; transition: background .3s, box-shadow .3s;
+    -webkit-appearance: none; appearance: none;
+  }
+  .field input:focus, .field select:focus {
+    background: rgba(255,255,255,.6);
+    box-shadow: 0 0 0 4px rgba(46,139,61,.25);
+  }
+
+  .seg {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+    padding: 5px; border-radius: 18px; margin-bottom: 4px;
+    background: rgba(255,255,255,.3); border: 1px solid rgba(255,255,255,.6);
+    position: relative; z-index: 1;
+  }
+  .seg button {
+    border: none; background: transparent; padding: 11px 6px; border-radius: 14px;
+    font-size: 15px; font-weight: 600; font-family: inherit; color: var(--muted); cursor: pointer;
+    transition: background .35s var(--spring), color .3s, transform .3s var(--spring), box-shadow .3s;
+  }
+  .seg button:active { transform: scale(.94); }
+  .seg button.on { background: #fff; color: var(--green-deep); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+
+  .avatar-big {
+    width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 14px;
+    display: grid; place-items: center; font-size: 30px; font-weight: 800; color: #fff;
+    background: linear-gradient(135deg, #7fd98a, #2e8b3d);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.6), 0 10px 24px rgba(46,139,61,.35);
+    position: relative; z-index: 1;
+  }
+  .sub-h { font-size: 18px; margin: 22px 4px 10px; }
+  .btn.ghost {
+    background: rgba(255,255,255,.4); color: var(--green-deep);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 4px 12px rgba(0,0,0,.06);
+    margin-top: 14px;
+  }
+  .order { border-radius: 22px; padding: 14px; margin-bottom: 10px; position: relative; }
+  .order > * { position: relative; z-index: 1; }
+  .ord-top, .ord-bot { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .ord-items { color: var(--muted); font-size: 13px; margin: 6px 0; }
+  .ord-bot { font-size: 13px; color: var(--muted); }
+  .ord-bot b { color: var(--text); font-size: 15px; }
+  .pill { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 12px; white-space: nowrap; }
+  .pill.s0 { background: rgba(255,80,70,.2); color: #b71c1c; }
+  .pill.s1 { background: rgba(255,170,0,.25); color: #8a5300; }
+  .pill.s2 { background: rgba(60,140,255,.2); color: #1655b8; }
+  .pill.s3 { background: rgba(46,139,61,.22); color: var(--green-deep); }
+  .steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-top: 10px; }
+  .step {
+    border: none; border-radius: 12px; padding: 8px; font-size: 12px; font-weight: 600;
+    font-family: inherit; color: var(--muted); background: rgba(255,255,255,.3); cursor: pointer;
+    transition: background .3s, color .3s, transform .3s var(--spring);
+  }
+  .step:active { transform: scale(.94); }
+  .step.on { background: #fff; color: var(--green-deep); box-shadow: 0 3px 10px rgba(0,0,0,.08); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+  .stat { border-radius: 20px; padding: 12px; display: flex; flex-direction: column; gap: 4px; }
+  .stat small { font-size: 11px; color: var(--muted); }
+  .stat b { font-size: 15px; font-variant-numeric: tabular-nums; }
+
+  .seg.four { grid-template-columns: repeat(4, 1fr); }
+  .seg.two { grid-template-columns: repeat(2, 1fr); }
+  .seg.four button { font-size: 14px; padding: 10px 4px; }
+  .form-card { margin-bottom: 14px; animation: viewIn .5s var(--ease) both; }
+  .form-card h3 { font-size: 17px; margin-bottom: 14px; position: relative; z-index: 1; }
+  .prod-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .prod-main { display: flex; align-items: center; gap: 12px; }
+  .prod-emoji { font-size: 30px; }
+  .prod-row b { font-size: 15px; }
+
+  .empty { text-align: center; color: var(--muted); padding: 60px 20px; border-radius: 26px; animation: viewIn .7s var(--ease) both; }
+  .empty .big { font-size: 60px; margin-bottom: 8px; animation: float 3s ease-in-out infinite; }
+  @keyframes float { 50% { transform: translateY(-8px); } }
+
+  .profile-card { padding: 20px; border-radius: 26px; animation: viewIn .6s var(--ease) both; }
+  .profile-card .row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.5); font-size: 15px; position: relative; z-index: 1; }
+  .profile-card .row:last-child { border-bottom: none; }
+  .profile-card p { color: var(--muted); font-size: 13px; margin-top: 12px; position: relative; z-index: 1; }
+
+  /* Suzuvchi tab bar */
+  nav {
+    position: fixed !important; left: 50%; bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    width: min(370px, calc(100% - 32px)); height: 68px; border-radius: 34px;
+    display: grid; grid-template-columns: repeat(3, 1fr); padding: 5px; z-index: 30;
+  }
+  .indicator {
+    position: absolute; top: 5px; bottom: 5px; left: 5px;
+    width: calc((100% - 10px) / 3); border-radius: 29px;
+    background: rgba(255,255,255,.55);
+    box-shadow: 0 6px 18px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,.95);
+    transition: transform .7s var(--spring);
+  }
+  nav button {
+    position: relative; z-index: 1; border: none; background: none; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    font-size: 11px; font-weight: 700; font-family: inherit; color: var(--muted);
+    transition: color .3s, transform .35s var(--spring);
+  }
+  nav button:active { transform: scale(.85); }
+  nav button .icon { font-size: 22px; line-height: 1; transition: transform .6s var(--spring); }
+  nav button.active { color: var(--green-deep); }
+  nav button.active .icon { transform: translateY(-2px) scale(1.2); }
+  button:focus, button:focus-visible { outline: none; }
+
+  .count {
+    position: absolute; top: 4px; right: calc(50% - 30px);
+    background: linear-gradient(180deg, #ff6259, #e53935); color: #fff;
+    border-radius: 10px; font-size: 10px; font-weight: 800;
+    padding: 1px 6px; min-width: 18px; text-align: center;
+    box-shadow: 0 3px 8px rgba(229,57,53,.45); display: none;
+  }
+  .count.show { display: block; }
+  .count.pop { animation: pop .55s var(--spring); }
+  @keyframes pop { 0% { transform: scale(.4); } 60% { transform: scale(1.45); } 100% { transform: scale(1); } }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 100px; z-index: 40;
+    transform: translate(-50%, 24px) scale(.85);
+    padding: 12px 20px; border-radius: 24px;
+    background: rgba(20,30,22,.45);
+    -webkit-backdrop-filter: blur(24px) saturate(160%); backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid rgba(255,255,255,.25);
+    color: #fff; font-size: 14px; font-weight: 600; white-space: nowrap;
+    opacity: 0; pointer-events: none;
+    transition: opacity .35s, transform .6s var(--spring);
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0) scale(1); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  }
 </style>
 </head>
 <body>
-<header><span class="logo" id="lg">FAZO.</span><small id="sub"></small></header>
-<main id="app"></main>
-<nav><a href="#katalog" id="n1"><b>🛍</b>Katalog</a><a href="#savat" id="n2"><b>🧺</b>Savat<span class="badge" id="cnt" hidden></span></a><a href="#profil" id="n3"><b>👤</b>Profil</a></nav>
+
+<div class="backdrop">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="blob b4"></div>
+</div>
+
+<header class="glass">
+  <div class="brand">FAZO<small>qishloq mahsulotlari</small></div>
+  <div class="mark">MARK 4</div>
+</header>
+
+<main>
+  <section id="katalog" class="view active">
+    <h2>Katalog</h2>
+    <div class="grid" id="product-grid"></div>
+  </section>
+
+  <section id="savat" class="view">
+    <h2>Savat</h2>
+    <div id="cart-list"></div>
+    <div id="summary-box"></div>
+    <div id="checkout-box"></div>
+  </section>
+
+  <section id="profil" class="view"></section>
+  <section id="admin" class="view"></section>
+</main>
+
+<nav class="glass" id="tabbar">
+  <div class="indicator" id="indicator"></div>
+  <button data-tab="katalog" class="active"><span class="icon">🛍</span>Katalog</button>
+  <button data-tab="savat"><span class="icon">🧺</span>Savat<span class="count" id="cart-count">0</span></button>
+  <button data-tab="profil"><span class="icon">👤</span>Profil</button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
 <script>
- 
-function cartH(){
- const it=P.filter(p=>C[p.id]);
- if(!it.length)return `<h2>Savat</h2><div class="box"><p class="muted">Savatingiz boʻsh.</p><a class="l" href="#katalog">Katalogga oʻtish</a></div>`;
- const sub=it.reduce((a,p)=>a+p.p*cleanQty(C[p.id],p),0),fee=Number(S.fee)||0;
- return `<h2>Savat</h2>${it.map(p=>`<div class="row"><span style="font-size:1.7rem">${esc(p.e)}</span><div class="nm"><b>${esc(p.n)}</b><div class="muted">${fmt(p.p)} / ${unitOf(p)}</div></div><button class="sm" onclick="add(${p.id},-1)">−</button><b>${qtyText(cleanQty(C[p.id],p),p)}</b><button class="sm" onclick="add(${p.id},1)">+</button></div>`).join("")}
- <div class="box wide"><div class="total"><span>Mahsulotlar</span><span>${fmt(sub)}</span></div><div class="total"><span>Yetkazib berish</span><span>${fmt(fee)}</span></div><div class="total" style="font-size:1.15rem"><span>Jami</span><span>${fmt(sub+fee)}</span></div>
- <input id="cn" placeholder="Ismingiz" value="${esc(U.name||"")}"><input id="cp" type="tel" placeholder="Telefon" value="${esc(U.phone||"")}"><input id="ca" placeholder="Manzil" value="${esc(U.addr||"")}">
- <button class="btn w" onclick="order(${sub+fee})">Buyurtma berish</button></div>`;
-}
-async function order(sum){
- const n=$("#cn").value.trim(),p=$("#cp").value.trim(),a=$("#ca").value.trim();
- if(!n||!p||!a)return toast("Ism, telefon va manzilni kiriting");
- U={name:n,phone:p,addr:a};sv("user",U);
- const items=P.filter(x=>C[x.id]).map(x=>({n:x.n,q:cleanQty(C[x.id],x),p:x.p,unit:unitOf(x)}));
- const od={id:Date.now(),t:new Date().toLocaleString("uz"),name:n,phone:p,addr:a,items,sum,st:"Yangi"};
- let ok=false;
- try{
- const r=await fetch("/api/order",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({name:n,phone:p,address:a,pay:"-",items:items.map(i=>({name:i.n,qty:i.q,unit:i.unit})),total:sum})});
- ok=r.ok;
- }catch(e){}
- if(!ok&&!API)return toast("Buyurtma yuborilmadi, qayta urining");
- if(API){
- try{const r=await api("order",{method:"POST",body:JSON.stringify(od)});if(!r.ok)throw 0}
- catch(e){return toast("Buyurtma yuborilmadi, qayta urining")}
- }else{O.push(od);sv("ord",O)}
- const txt=`Yangi buyurtma (${S.name})\n`+items.map(i=>`• ${i.n} — ${i.q} ${i.unit}`).join("\n")+`\nJami: ${fmt(sum)}\n${n}, ${p}\n${a}`;
- C={};sv("cart",C);badge();
- app.innerHTML=`<div class="box"><h2>Rahmat! 🎉</h2><p>Buyurtmangiz qabul qilindi. Tez orada bogʻlanamiz.</p>${S.tg?`<a class="btn w" style="display:block;text-align:center;text-decoration:none" target="_blank" href="https://t.me/${esc(S.tg)}?text=${encodeURIComponent(txt)}">Telegramda yuborish</a>`:""}<p><a class="l" href="#katalog">Katalogga qaytish</a></p></div>`;
- }function profile(){return `<h2>Profil</h2><div class="box"><input id="pn" placeholder="Ism" value="${esc(U.name||"")}"><input id="pp" type="tel" placeholder="Telefon" value="${esc(U.phone||"")}"><input id="pa" placeholder="Manzil" value="${esc(U.addr||"")}"><button class="btn w" onclick="U={name:$('#pn').value,phone:$('#pp').value,addr:$('#pa').value};sv('user',U);toast('Saqlandi')">Saqlash</button></div>
-<div class="box"><b>Aloqa</b><p class="muted">📞 ${esc(S.phone)}</p>${dp?`<button class="btn w" onclick="inst()">📲 Ilovani oʻrnatish</button>`:""}<button class="btn w" onclick="shareApp()">🔗 Doʻstlarga ulashish</button><button class="btn w" onclick="location.hash='#admin'">⚙️ Admin panel</button></div>`}
+  /*
+    Har mahsulot o'z birligida sotiladi:
+    unit: "kg" | "litr" | "xalta" | "dona"
+    price: shu birlik uchun narx (so'm)
+    step: bir bosishda qo'shiladigan miqdor (birlikda)
+  */
+  const PRODUCTS = [
+    { id: 1,  name: "Un (oliy nav)",     emoji: "🌾", price: 285000, unit: "xalta", step: 1,   max: 20 },
+    { id: 2,  name: "Guruch (devzira)",  emoji: "🍚", price: 340000, unit: "xalta", step: 1,   max: 20 },
+    { id: 3,  name: "Sariyog' (uy)",     emoji: "🧈", price: 110000, unit: "kg",    step: 0.5, max: 20 },
+    { id: 4,  name: "Qaymoq",            emoji: "🥛", price: 95000,  unit: "kg",    step: 0.5, max: 20 },
+    { id: 5,  name: "Asal",              emoji: "🍯", price: 130000, unit: "kg",    step: 0.5, max: 20 },
+    { id: 6,  name: "Kartoshka",         emoji: "🥔", price: 6000,   unit: "kg",    step: 0.5, max: 100 },
+    { id: 7,  name: "Pomidor",           emoji: "🍅", price: 12000,  unit: "kg",    step: 0.5, max: 50 },
+    { id: 8,  name: "Olma",              emoji: "🍎", price: 9000,   unit: "kg",    step: 0.5, max: 50 },
+    { id: 9,  name: "Sabzi",             emoji: "🥕", price: 5000,   unit: "kg",    step: 0.5, max: 100 },
+    { id: 10, name: "Sut (uy)",          emoji: "🍼", price: 14000,  unit: "litr",  step: 0.5, max: 20 },
+    { id: 11, name: "Sabzavot yog'i",    emoji: "🫒", price: 28000,  unit: "litr",  step: 1,   max: 20 },
+    { id: 12, name: "Tuxum",             emoji: "🥚", price: 2200,   unit: "dona",  step: 10,  max: 300 },
+    { id: 13, name: "Non (tandir)",      emoji: "🍞", price: 4000,   unit: "dona",  step: 1,   max: 30 }
+  ];
 
-function saveP(){
- const n=$("#an").value.trim(),c=$("#ac").value.trim()||"Boshqa",p=Number($("#ap").value),e=$("#ae").value.trim()||"🛒",unit=$("#au").value;
- if(!n||!Number.isFinite(p)||p<=0)return toast("Nomi va toʻgʻri narxini kiriting");
- const o=P.find(x=>x.id===edit);
- if(o)Object.assign(o,{n,c,p,e,unit});else P.push({id:Date.now(),n,c,p,e,unit,s:true});
- if(o&&C[o.id]!=null)C[o.id]=cleanQty(C[o.id],o);
- sv("cart",C);push();edit=null;toast("Saqlandi");render();
-}
-const stk=id=>{const p=P.find(x=>x.id===id);p.s=!p.s;push();render()};
-const delP=id=>{if(confirm("Oʻchirilsinmi?")){P=P.filter(x=>x.id!==id);push();render()}};
-const ost=(id,v)=>{O.find(x=>x.id===id).st=v;saveO()};
-const delO=id=>{if(confirm("Oʻchirilsinmi?")){O=O.filter(x=>x.id!==id);saveO();render()}};
+  // Savat: { id: miqdor } — miqdor MING birlikda saqlanadi (0.5 kg = 500), suzuvchi nuqta xatosiz
+  const cart = {};
+  let payMethod = "cash";
+  let cardNumber = "";
+  const seenCart = new Set();
+  const seenCatalog = new Set();
 
-function saveS(){
- const np=$("#sx").value.trim();
- S={...S,name:$("#sn").value||"FAZO",phone:$("#sp").value,tg:$("#st").value.replace("@","").trim(),fee:Number($("#sf").value)||0,pin:np||S.pin};
- push(np);toast("Saqlandi");render()
-}
+  const money = n => Math.round(n).toLocaleString("uz-UZ") + " so'm";
+  const toMilli = x => Math.round(x * 1000);
+  const fromMilli = m => (m / 1000).toString();
+  const fmtQty = (p, m) => fromMilli(m) + " " + p.unit;
+  const linePrice = (p, m) => Math.round(p.price * m / 1000);
 
-function admin(){
- if(!adm)return `<h2>Admin</h2><div class="box"><input id="pin" type="password" inputmode="numeric" placeholder="PIN-kod"><button class="btn w" onclick="login()">Kirish</button></div>`;
- const t=(k,l)=>`<button class="chip ${tab===k?"on":""}" onclick="tab='${k}';edit=null;render()">${l}</button>`;let b="";
- if(tab==="p"){
- const e=P.find(x=>x.id===edit)||{n:"",c:"",p:"",e:"🛒"};
- b=`<div class="box wide"><b>${edit?"Tahrirlash":"Yangi mahsulot"}</b><input id="an" placeholder="Nomi" value="${esc(e.n)}"><input id="ac" placeholder="Kategoriya" value="${esc(e.c)}"><input id="ap" type="number" min="1" step="any" placeholder="Narxi (soʻm / tanlangan birlik)" value="${e.p}"><input id="ae" placeholder="Emoji" value="${esc(e.e)}"><label for="au" class="muted">Oʻlchov birligi</label><select id="au"><option value="dona" ${unitOf(e)==="dona"?"selected":""}>Dona</option><option value="kg" ${unitOf(e)==="kg"?"selected":""}>Kilogramm (kg)</option><option value="litr" ${unitOf(e)==="litr"?"selected":""}>Litr</option><option value="paket" ${unitOf(e)==="paket"?"selected":""}>Paket</option></select><button class="btn w" onclick="saveP()">Saqlash</button></div>`+P.map(p=>`<div class="row"><span style="font-size:1.6rem">${esc(p.e)}</span><div class="nm"><b>${esc(p.n)}</b><div class="muted">${fmt(p.p)} · ${p.s?"Bor":"Tugagan"}</div></div><button class="sm" onclick="edit=${p.id};render();scrollTo(0,0)">✎</button><button class="sm" onclick="stk(${p.id})">${p.s?"⏸":"▶"}</button><button class="sm" onclick="delP(${p.id})">🗑</button></div>`).join("")
- }
- else if(tab==="o"){
- b=(API?`<button class="btn w" onclick="refO()">🔄 Yangilash</button>`:"")+(O.length?O.slice().reverse().map(o=>`<div class="card" style="margin-bottom:10px"><b>#${String(o.id).slice(-5)} · ${esc(o.name)}</b><div class="muted">${esc(o.t)} · ${esc(o.phone)}<br>${esc(o.addr)}</div><div>${o.items.map(i=>esc(i.n)+" — "+i.q+" "+(i.unit||unitOf({n:i.n})).join(", ")}</div><div class="price">${fmt(o.sum)}</div><select onchange="ost(${o.id},this.value)">${["Yangi","Yigʻilmoqda","Yetkazilmoqda","Yetkazildi","Bekor"].map(s=>`<option ${s===o.st?"selected":""}>${s}</option>`).join("")}</select><button class="btn" onclick="delO(${o.id})">Oʻchirish</button></div>`).join(""):`<p class="muted">Buyurtmalar yoʻq</p>`)
- }
- else b=`<div class="box wide"><input id="sn" placeholder="Doʻkon nomi" value="${esc(S.name)}"><input id="sp" placeholder="Telefon" value="${esc(S.phone)}"><input id="st" placeholder="Telegram username (@siz)" value="${esc(S.tg)}"><input id="sf" type="number" placeholder="Yetkazib berish narxi" value="${S.fee}"><input id="sx" placeholder="Yangi PIN (oʻzgartirmasangiz boʻsh)" value=""><button class="btn w" onclick="saveS()">Saqlash</button><button class="btn w off" onclick="if(confirm('Hammasi boshlangʻich holatga qaytadi')){P=SEED;S={...DS};push();render()}">Boshlangʻich holatga qaytarish</button></div>`;
- const rev=O.filter(o=>o.st!=="Bekor").reduce((a,o)=>a+o.sum,0);
- return `<h2>Admin panel</h2><div class="row"><div class="nm muted">Mahsulot: <b>${P.length}</b> · Buyurtma: <b>${O.length}</b> · Tushum: <b>${fmt(rev)}</b></div><button class="sm" onclick="adm=false;render()">Chiqish</button></div><div class="chips">${t("p","Mahsulotlar")}${t("o","Buyurtmalar")}${t("s","Sozlamalar")}</div>${b}`
-}
+  function totalPrice() {
+    let s = 0;
+    for (const id in cart) s += linePrice(PRODUCTS.find(x => x.id == id), cart[id]);
+    return s;
+  }
 
-function inst(){dp.prompt();dp=null;render()}
-addEventListener("appinstalled",()=>{dp=null;render()});
+  function showToast(text) {
+    const t = document.getElementById("toast");
+    t.textContent = text;
+    t.classList.add("show");
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => t.classList.remove("show"), 1600);
+  }
 
-function render(){
- const h=location.hash||"#katalog";
- app.innerHTML=h==="#savat"?cartH():h==="#profil"?profile():h==="#admin"?admin():catalog();
- ["#katalog","#savat","#profil"].forEach((x,i)=>$("#n"+(i+1)).className=(x===h||(h==="#admin"&&i===2))?"on":"");
- $("#lg").textContent=S.name+".";document.title=S.name+" — internet-doʻkon";badge()
-}
-addEventListener("hashchange",()=>{render();scrollTo(0,0)});
-addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;if(["","#katalog","#profil"].includes(location.hash))render()});
-try{if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{})}catch(e){}
-render();boot();
+  // Mahsulot emojisi yoy bo'ylab uchib, savat tugmasiga tushadi
+  function flyToCart(emoji, fromEl) {
+    const from = fromEl.getBoundingClientRect();
+    const target = document.querySelector('nav button[data-tab="savat"] .icon').getBoundingClientRect();
+    const size = 40;
+    const sx = from.left + from.width / 2 - size / 2;
+    const sy = from.top + from.height / 2 - size / 2;
+    const ex = target.left + target.width / 2 - size / 2;
+    const ey = target.top + target.height / 2 - size / 2;
+
+    const fly = document.createElement("div");
+    fly.textContent = emoji;
+    fly.style.cssText = `position:fixed;left:0;top:0;z-index:50;width:${size}px;height:${size}px;
+      font-size:34px;line-height:${size}px;text-align:center;pointer-events:none;will-change:transform,opacity;
+      filter:drop-shadow(0 8px 10px rgba(0,0,0,.25));`;
+    document.body.appendChild(fly);
+
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setTimeout(() => { fly.remove(); bumpBadge(); }, 50);
+      return;
+    }
+
+    // Yoy: to'g'ri chiziqqa yuqoriga sakrash qo'shilgan parabola
+    const N = 16, frames = [];
+    for (let i = 0; i <= N; i++) {
+      const t = i / N;
+      const x = sx + (ex - sx) * t;
+      const y = sy + (ey - sy) * t - 240 * Math.sin(Math.PI * t);
+      const s = 1 + 0.6 * Math.sin(Math.PI * t) - 0.7 * t;
+      const r = 720 * t;
+      frames.push({
+        transform: `translate(${x}px, ${y}px) rotate(${r}deg) scale(${s})`,
+        opacity: i > N - 2 ? 0.4 : 1
+      });
+    }
+    const anim = fly.animate(frames, { duration: 900, easing: "linear", fill: "forwards" });
+    anim.onfinish = () => { fly.remove(); bumpBadge(); };
+  }
+
+  function ripple(e, btn) {
+    const r = document.createElement("span");
+    r.className = "ripple";
+    const rect = btn.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    r.style.width = r.style.height = size + "px";
+    r.style.left = (e.clientX - rect.left - size / 2) + "px";
+    r.style.top = (e.clientY - rect.top - size / 2) + "px";
+    btn.appendChild(r);
+    setTimeout(() => r.remove(), 650);
+  }
+
+  function renderCatalog() {
+    const grid = document.getElementById("product-grid");
+    grid.innerHTML = "";
+    PRODUCTS.forEach((p, i) => {
+      const card = document.createElement("div");
+      card.className = "card glass";
+      if (!seenCatalog.has(p.id)) card.style.setProperty("--d", (i * 60) + "ms");
+      else card.style.animation = "none";
+
+      const inCart = cart[p.id];
+      card.innerHTML = `
+        <div class="emoji">${p.emoji}</div>
+        <div class="name">${p.name}</div>
+        <div class="price-unit">${money(p.price)} / ${p.unit}</div>
+        ${inCart ? `<div class="inCart">Savatda: ${fmtQty(p, inCart)}</div>` : ""}
+      `;
+
+      const btn = document.createElement("button");
+      btn.className = "btn";
+      btn.innerHTML = `<span class="shine"></span>${inCart ? "+ Yana qo'shish" : "Savatga qo'shish"}`;
+      btn.onclick = (e) => {
+        ripple(e, btn);
+        cart[p.id] = (cart[p.id] || 0) + toMilli(p.step);
+        if (cart[p.id] > toMilli(p.max)) cart[p.id] = toMilli(p.max);
+        showToast(p.name + " savatga qo'shildi");
+        flyToCart(p.emoji, card.querySelector(".emoji"));
+        renderAll();
+      };
+      card.appendChild(btn);
+      grid.appendChild(card);
+      seenCatalog.add(p.id);
+    });
+  }
+
+  function renderCart() {
+    const list = document.getElementById("cart-list");
+    const summary = document.getElementById("summary-box");
+    const checkout = document.getElementById("checkout-box");
+    list.innerHTML = ""; summary.innerHTML = ""; checkout.innerHTML = "";
+
+    const ids = Object.keys(cart);
+    if (!ids.length) {
+      list.innerHTML = `<div class="empty glass"><div class="big">🧺</div>Savat bo'sh.<br>Katalogdan mahsulot tanlang.</div>`;
+      seenCart.clear();
+      return;
+    }
+
+    ids.forEach(id => {
+      const p = PRODUCTS.find(x => x.id == id);
+      const m = cart[id];
+      const step = toMilli(p.step), min = step, max = toMilli(p.max);
+
+      const row = document.createElement("div");
+      row.className = "cart-item glass";
+      if (!seenCart.has(p.id)) row.classList.add("enter");
+      seenCart.add(p.id);
+
+      row.innerHTML = `
+        <div class="cart-thumb">${p.emoji}</div>
+        <div class="cart-info">
+          <div class="name">${p.name}</div>
+          <div class="sub">${money(p.price)} / ${p.unit}</div>
+        </div>
+        <div class="qty">
+          <button data-minus>−</button>
+          <span>${fmtQty(p, m)}</span>
+          <button data-plus>+</button>
+        </div>
+        <div class="line-total">${money(linePrice(p, m))}</div>
+      `;
+      list.appendChild(row);
+
+      row.querySelector("[data-minus]").onclick = () => {
+        if (m - step < min) {
+          row.classList.add("leaving");
+          setTimeout(() => { delete cart[id]; seenCart.delete(p.id); renderAll(); }, 330);
+          return;
+        }
+        cart[id] = m - step;
+        renderAll();
+      };
+      row.querySelector("[data-plus]").onclick = () => { cart[id] = Math.min(max, m + step); renderAll(); };
+    });
+
+    summary.innerHTML = `
+      <div class="summary glass">
+        <div class="row"><span>Mahsulotlar soni</span><span>${ids.length} ta</span></div>
+        <div class="row total"><span>Jami</span><span>${money(totalPrice())}</span></div>
+      </div>`;
+
+    checkout.innerHTML = `
+      <div class="summary glass">
+        <div class="field"><label>Ism</label><input id="f-name" placeholder="Ismingiz"></div>
+        <div class="field"><label>Telefon</label><input id="f-phone" placeholder="+998 __ ___ __ __" inputmode="tel"></div>
+        <div class="field"><label>To'lov turi</label>
+          <div class="seg two" id="pay-seg">
+            <button type="button" data-pay="cash" class="${payMethod === 'cash' ? 'on' : ''}">Naqd</button>
+            <button type="button" data-pay="card" class="${payMethod === 'card' ? 'on' : ''}">Karta</button>
+
+          </div>
+        </div>
+        ${payMethod === "card" ? `
+        <div class="field"><label>Karta raqami</label>
+          <input id="f-card" value="${cardNumber}" placeholder="0000 0000 0000 0000" inputmode="numeric" autocomplete="off">
+        </div>` : ""}
+        <button class="btn block" id="order-btn"><span class="shine"></span>Buyurtma berish</button>
+      </div>`;
+    document.getElementById("order-btn").onclick = placeOrder;
+    const cardIn = document.getElementById("f-card");
+    if (cardIn) {
+      cardIn.oninput = () => {
+        const digits = cardIn.value.replace(/\D/g, "").slice(0, 16);
+        cardNumber = digits.replace(/(.{4})(?=.)/g, "$1 ");
+        cardIn.value = cardNumber;
+      };
+    }
+    document.querySelectorAll("#pay-seg button").forEach(b => {
+      b.onclick = () => { payMethod = b.dataset.pay; renderCart(); };
+    });
+  }
+
+  function placeOrder() {
+    const name = document.getElementById("f-name").value.trim();
+    const phone = document.getElementById("f-phone").value.trim();
+    if (!name || !phone) { showToast("Ism va telefonni kiriting"); return; }
+    if (payMethod === "card" && cardNumber.replace(/\D/g, "").length !== 16) {
+      showToast("Karta raqamini to'liq kiriting");
+      return;
+    }
+    cardNumber = "";
+    const items = Object.keys(cart).map(id => {
+      const p = PRODUCTS.find(x => x.id == id);
+      return `${p.name} ${fromMilli(cart[id])} ${p.unit}`;
+    }).join(", ");
+    orders.unshift({
+      id: nextOrderId++, name, phone, items,
+      total: totalPrice(), pay: PAY_LABEL[payMethod], status: 0, date: "Hozir"
+    });
+    showToast("Buyurtma qabul qilindi ✓");
+    Object.keys(cart).forEach(k => delete cart[k]);
+    seenCart.clear();
+    renderAll();
+  }
+
+  // Buyurtmalar (demo ma'lumot; mijoz buyurtma bersa, bu ro'yxatga qo'shiladi)
+  const STATUSES = ["Yangi", "Yig'ilmoqda", "Yo'lda", "Yakunlandi"];
+  const orders = [
+    { id: 1041, name: "Dilshod", phone: "+998 90 123 45 67", items: "Un 2 xalta, Sut 3 litr", total: 612000, pay: "Karta", status: 2, date: "Bugun 10:24" },
+    { id: 1040, name: "Malika", phone: "+998 93 555 10 20", items: "Tuxum 2 dona, Asal 1 kg", total: 134400, pay: "Naqd", status: 3, date: "Kecha 18:02" }
+  ];
+  let profile = { name: "Mehmon", phone: "", address: "" };
+  let nextOrderId = 1042;
+  const PAY_LABEL = { cash: "Naqd", card: "Karta", credit: "Nasiya" };
+
+  function orderCard(o) {
+    return `
+      <div class="order glass">
+        <div class="ord-top"><b>#${o.id}</b><span class="pill s${o.status}">${STATUSES[o.status]}</span></div>
+        <div class="ord-items">${o.items}</div>
+        <div class="ord-bot"><span>${o.date} · ${o.pay}</span><b>${money(o.total)}</b></div>
+      </div>`;
+  }
+
+  function renderProfile() {
+    const el = document.getElementById("profil");
+    const initial = (profile.name || "M").trim()[0].toUpperCase();
+    el.innerHTML = `
+      <h2>Profil</h2>
+      <div class="profile-card glass">
+        <div class="avatar-big">${initial}</div>
+        <div class="field"><label>Ism</label><input id="p-name" value="${profile.name}" placeholder="Ismingiz"></div>
+        <div class="field"><label>Telefon</label><input id="p-phone" value="${profile.phone}" placeholder="+998 __ ___ __ __" inputmode="tel"></div>
+        <div class="field"><label>Manzil</label><input id="p-addr" value="${profile.address}" placeholder="Tuman, mahalla, ko'cha"></div>
+        <button class="btn block" id="p-save"><span class="shine"></span>Saqlash</button>
+      </div>
+      <h2 class="sub-h">Buyurtmalar tarixi</h2>
+      ${orders.length ? orders.map(orderCard).join("") : `<div class="empty glass">Hali buyurtmalar yo'q</div>`}
+      <button class="btn ghost block" id="go-admin">Admin panelga o'tish</button>
+    `;
+    document.getElementById("p-save").onclick = () => {
+      profile.name = document.getElementById("p-name").value.trim() || "Mehmon";
+      profile.phone = document.getElementById("p-phone").value.trim();
+      profile.address = document.getElementById("p-addr").value.trim();
+      showToast("Profil saqlandi ✓");
+      renderProfile();
+    };
+    document.getElementById("go-admin").onclick = () => switchTab("admin");
+  }
+
+  function renderAdmin() {
+    const el = document.getElementById("admin");
+    const revenue = orders.reduce((s, o) => s + o.total, 0);
+    const pending = orders.filter(o => o.status < 3).length;
+    el.innerHTML = `
+      <h2>Admin</h2>
+      <div class="stats">
+        <div class="stat glass"><small>Buyurtmalar</small><b>${orders.length} ta</b></div>
+        <div class="stat glass"><small>Tushum</small><b>${money(revenue)}</b></div>
+        <div class="stat glass"><small>Kutilmoqda</small><b>${pending} ta</b></div>
+      </div>
+      <div id="admin-orders"></div>
+      <h2 class="sub-h">Mahsulotlar</h2>
+      <button class="btn block" id="add-prod"><span class="shine"></span>+ Yangi mahsulot</button>
+      <div id="prod-form"></div>
+      <div id="admin-products"></div>
+      <button class="btn ghost block" id="back-profile">← Profilga qaytish</button>
+    `;
+    const list = el.querySelector("#admin-orders");
+    orders.forEach(o => {
+      const div = document.createElement("div");
+      div.className = "order glass";
+      div.innerHTML = `
+        <div class="ord-top"><b>#${o.id} · ${o.name}</b><span class="pill s${o.status}">${STATUSES[o.status]}</span></div>
+        <div class="ord-items">${o.items}</div>
+        <div class="ord-bot"><span>${o.phone} · ${o.pay}</span><b>${money(o.total)}</b></div>
+        <div class="steps"></div>`;
+      const steps = div.querySelector(".steps");
+      STATUSES.forEach((s, i) => {
+        const b = document.createElement("button");
+        b.className = "step" + (i === o.status ? " on" : "");
+        b.textContent = s;
+        b.onclick = () => { o.status = i; renderAdmin(); renderProfile(); };
+        steps.appendChild(b);
+      });
+      list.appendChild(div);
+    });
+    el.querySelector("#add-prod").onclick = () => openProductForm(null);
+    renderProductsAdmin();
+    el.querySelector("#back-profile").onclick = () => switchTab("profil");
+  }
+
+  let nextProductId = 14;
+  const UNITS = ["kg", "litr", "xalta", "dona"];
+
+  function renderProductsAdmin() {
+    const box = document.getElementById("admin-products");
+    box.innerHTML = "";
+    PRODUCTS.forEach(p => {
+      const row = document.createElement("div");
+      row.className = "order glass prod-row";
+      row.innerHTML = `
+        <div class="prod-main">
+          <span class="prod-emoji">${p.emoji}</span>
+          <div>
+            <b>${p.name}</b>
+            <div class="ord-items">${money(p.price)} / ${p.unit} · qadam ${p.step} · max ${p.max}</div>
+          </div>
+        </div>
+        <button class="step" style="flex:0 0 auto;width:auto;">Tahrirlash</button>`;
+      row.querySelector(".step").onclick = () => openProductForm(p.id);
+      box.appendChild(row);
+    });
+  }
+
+  function openProductForm(id) {
+    const p = id ? PRODUCTS.find(x => x.id === id) : null;
+    const d = p || { name: "", emoji: "🛒", price: "", unit: "kg", step: 1, max: 20 };
+    const box = document.getElementById("prod-form");
+    box.innerHTML = `
+      <div class="order glass form-card">
+        <h3>${p ? "Mahsulotni tahrirlash" : "Yangi mahsulot"}</h3>
+        <div class="field"><label>Emoji</label><input id="pf-emoji" value="${d.emoji}" maxlength="4"></div>
+        <div class="field"><label>Nomi</label><input id="pf-name" value="${d.name}" placeholder="Masalan: Guruch"></div>
+        <div class="field"><label>Narx (so'm / birlik)</label><input id="pf-price" value="${d.price}" inputmode="numeric" placeholder="0"></div>
+        <div class="field"><label>Birlik</label>
+          <div class="seg four" id="pf-unit">
+            ${UNITS.map(u => `<button type="button" data-u="${u}" class="${u === d.unit ? 'on' : ''}">${u}</button>`).join("")}
+          </div>
+        </div>
+        <div class="field"><label>Qadam (bir bosishda)</label><input id="pf-step" value="${d.step}" inputmode="decimal"></div>
+        <div class="field"><label>Maksimal miqdor</label><input id="pf-max" value="${d.max}" inputmode="decimal"></div>
+        <button class="btn block" id="pf-save"><span class="shine"></span>Saqlash</button>
+        ${p ? `<button class="btn ghost block" id="pf-del">Mahsulotni o'chirish</button>` : ""}
+        <button class="btn ghost block" id="pf-cancel">Bekor qilish</button>
+      </div>`;
+
+    let unit = d.unit;
+    box.querySelectorAll("#pf-unit button").forEach(b => {
+      b.onclick = () => {
+        unit = b.dataset.u;
+        box.querySelectorAll("#pf-unit button").forEach(x => x.classList.toggle("on", x === b));
+      };
+    });
+
+    box.querySelector("#pf-cancel").onclick = () => { box.innerHTML = ""; };
+
+    box.querySelector("#pf-save").onclick = () => {
+      const name = box.querySelector("#pf-name").value.trim();
+      const emoji = box.querySelector("#pf-emoji").value.trim() || "🛒";
+      const price = Number(box.querySelector("#pf-price").value);
+      const step = Number(box.querySelector("#pf-step").value.replace(",", "."));
+      const max = Number(box.querySelector("#pf-max").value.replace(",", "."));
+      if (!name) { showToast("Mahsulot nomini kiriting"); return; }
+      if (!(price > 0)) { showToast("Narxni to'g'ri kiriting"); return; }
+      if (!(step > 0) || !(max >= step)) { showToast("Qadam va maksimalni tekshiring"); return; }
+
+      if (p) {
+        Object.assign(p, { name, emoji, price, unit, step, max });
+        if (cart[p.id] > toMilli(max)) cart[p.id] = toMilli(max);
+      } else {
+        PRODUCTS.push({ id: nextProductId++, name, emoji, price, unit, step, max });
+      }
+      showToast(p ? "Mahsulot yangilandi ✓" : "Mahsulot qo'shildi ✓");
+      renderAll();
+      renderAdmin();
+    };
+
+    if (p) {
+      box.querySelector("#pf-del").onclick = () => {
+        PRODUCTS.splice(PRODUCTS.indexOf(p), 1);
+        delete cart[p.id];
+        showToast("Mahsulot o'chirildi");
+        renderAll();
+        renderAdmin();
+      };
+    }
+    box.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  const tabs = ["katalog", "savat", "profil"];
+  function switchTab(name) {
+    if (name === "profil") renderProfile();
+    if (name === "admin") renderAdmin();
+    document.querySelectorAll(".view").forEach(v => {
+      v.classList.remove("active");
+      if (v.id === name) { void v.offsetWidth; v.classList.add("active"); }
+    });
+    const tabKey = name === "admin" ? "profil" : name;
+    document.querySelectorAll("nav button").forEach(b => b.classList.toggle("active", b.dataset.tab === tabKey));
+    document.getElementById("indicator").style.transform = `translateX(${tabs.indexOf(tabKey) * 100}%)`;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  document.querySelectorAll("nav button").forEach(b => b.addEventListener("click", () => switchTab(b.dataset.tab)));
+
+  function bumpBadge() {
+    const b = document.getElementById("cart-count");
+    b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop");
+  }
+
+  function renderAll() {
+    renderCatalog();
+    renderCart();
+    const c = Object.keys(cart).length;
+    const badge = document.getElementById("cart-count");
+    badge.textContent = c;
+    badge.classList.toggle("show", c > 0);
+  }
+
+  renderAll();
+  renderProfile();
+  renderAdmin();
 </script>
 </body>
 </html>
- 
