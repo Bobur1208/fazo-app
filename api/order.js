@@ -1,77 +1,30 @@
-function send(res, code, obj) {
-  res.statusCode = code;
-  res.setHeader('Content-Type', 'application/json; charset=utf-8');
-  res.end(JSON.stringify(obj));
-}
-
-function readBody(req) {
-  return new Promise(function (resolve) {
-    if (req.body && typeof req.body === 'object') return resolve(req.body);
-    if (typeof req.body === 'string') {
-      try { return resolve(JSON.parse(req.body)); } catch (e) { return resolve({}); }
-    }
-    var data = '';
-    req.on('data', function (c) { data += c; });
-    req.on('end', function () {
-      try { resolve(JSON.parse(data || '{}')); } catch (e) { resolve({}); }
-    });
-    req.on('error', function () { resolve({}); });
-  });
-}
-
 module.exports = async function handler(req, res) {
-  try {
-    var token = process.env.TELEGRAM_BOT_TOKEN;
-    var chat = process.env.TELEGRAM_CHAT_ID;
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.status(204).end();
+  if (req.method !== "POST") return res.status(405).json({ ok: false });
 
-    if (req.method !== 'POST') {
-      var u = String(req.url || '');
-      if (u.indexOf('test=1') !== -1 && token && chat) {
-        var tr = await fetch('https://api.telegram.org/bot' + token + '/sendMessage', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ chat_id: chat, text: 'FAZO: sinov xabari ✅' })
-        });
-        var tj = await tr.json().catch(function () { return {}; });
-        return send(res, 200, { test: true, sent: tr.ok, telegram: tj.description || 'ok' });
-      }
-      return send(res, 200, { ok: true, hasToken: !!token, hasChat: !!chat });
-    }
-    if (!token || !chat) {
-      return send(res, 500, { ok: false, error: 'env yoq', hasToken: !!token, hasChat: !!chat });
-    }
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.CHAT_ID;
+  if (!token || !chatId) return res.status(500).json({ ok: false });
 
-    var b = await readBody(req);
-    var items = Array.isArray(b.items) ? b.items.slice(0, 50) : [];
-    if (!b.phone || items.length === 0) {
-      return send(res, 400, { ok: false, error: 'telefon yoki mahsulot yoq' });
-    }
+  const { name, phone, items, total, pay } = req.body || {};
+  if (!name || !phone || !items) return res.status(400).json({ ok: false });
 
-    var lines = items.map(function (i) {
-      var q = Math.round(Number(i.qty) * 10) / 10;
-      if (!Number.isFinite(q) || q <= 0 || (q * 2) % 1 !== 0) q = 0;
-      var unit = i.unit === 'kg' ? ' kg' : ' ta';
-      return '• ' + String(i.name).slice(0, 60) + ' x' + q + unit;
-    });
-    var text =
-      '🛒 YANGI BUYURTMA\n\n' +
-      '👤 ' + String(b.name || '-').slice(0, 60) + '\n' +
-      '📞 ' + String(b.phone).slice(0, 25) + '\n' +
-      '📍 ' + String(b.address || '-').slice(0, 150) + '\n\n' +
-      lines.join('\n') + '\n\n' +
-      '💰 Jami: ' + Number(b.total || 0) + " so'm";
+  const text =
+    "🛒 Yangi buyurtma\n\n" +
+    "👤 " + String(name).slice(0, 100) + "\n" +
+    "📞 " + String(phone).slice(0, 30) + "\n" +
+    "📦 " + String(items).slice(0, 1000) + "\n" +
+    "💰 " + Number(total) + " so'm\n" +
+    "💳 " + String(pay).slice(0, 20);
 
-    var r = await fetch('https://api.telegram.org/bot' + token + '/sendMessage', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: chat, text: text })
-    });
-    var j = await r.json().catch(function () { return {}; });
-    if (!r.ok) {
-      return send(res, 502, { ok: false, telegram: j.description || r.status });
-    }
-    return send(res, 200, { ok: true });
-  } catch (e) {
-    return send(res, 500, { ok: false, error: String(e && e.message ? e.message : e) });
-  }
+  const r = await fetch("https://api.telegram.org/bot" + token + "/sendMessage", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ chat_id: chatId, text })
+  });
+
+  return res.status(r.ok ? 200 : 502).json({ ok: r.ok });
 };
